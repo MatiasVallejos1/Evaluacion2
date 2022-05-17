@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\MedidorModel",
+    "\\MedidorModel\\DAL",
+    "\\ServerSocketUtils"
   ],
+  "SelectedNode": "\\ServerSocketUtils\\ServerSocket.cs",
   "PreviewInSolutionExplorer": false
 }

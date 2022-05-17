@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6A9592F4-CB59-4771-9CB2-80C7F6EE0301}</ProjectGuid>
+    <ProjectGuid>{860DDE7F-9262-416C-BCCA-04D3B24D0578}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Medidores</RootNamespace>
-    <AssemblyName>Medidores</AssemblyName>
+    <RootNamespace>MedidorModel</RootNamespace>
+    <AssemblyName>MedidorModel</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,6 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cliente\ClienteSocket.cs" />
+    <Compile Include="DAL\IMedidorDAL.cs" />
+    <Compile Include="DAL\MedidorDALLectura.cs" />
+    <Compile Include="DTO\Medidor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
