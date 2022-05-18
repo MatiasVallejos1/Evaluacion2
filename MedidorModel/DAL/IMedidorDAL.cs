@@ -9,8 +9,9 @@ namespace MedidorModel.DAL
 {
     public interface IMedidorDAL
     {
-        void AgregarMedidor(Medidor medidor);
+        void AgregarLectura(Lecturas lectura);
 
+        List<Lecturas> ObtenerLecturas();
         List<Medidor> ObtenerMedidor();
     }
 }

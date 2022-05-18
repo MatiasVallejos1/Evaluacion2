@@ -10,6 +10,9 @@ namespace Medidores
 {
     class Program
     {
+        //Esta clase representa a la consola cliente, la cual se conectara con el servidor.
+        /*Se puede ejecutar haciendo clic derecho sobre proyecto MedidorModel/ abrir carpeta en el explorador de archivos,
+         luego de que se abra la carpeta debe dirigirse a la siguiente locación : MedidorModel\bin\Debug y ejecutar archivo MedidorModel*/
         static void Main(string[] args)
         {
             int puerto = Convert.ToInt32(ConfigurationManager.AppSettings["puerto"]);

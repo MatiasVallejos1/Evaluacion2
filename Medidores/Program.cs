@@ -20,16 +20,18 @@ namespace Medidores
         static bool Menu()
         {
             bool continuar = true;
-            string fecha = ObtenerFecha();
             Console.WriteLine("¿Que necesita hacer?");
-            Console.WriteLine(" 1. Ingresar \n 2. Mostrar \n 3. Abrir cliente \n 0. Salir \n");
+            Console.WriteLine(" 1. Ingresar \n 2. Mostrar solo medidores \n 3. Mostrar Lecturas completas \n 0. Salir \n");
             switch (Console.ReadLine().Trim())
             {
                 case "1":
                     Ingresar();
                     break;
                 case "2":
-                    Mostrar();
+                    MostrarMedidor();
+                    break;
+                case "3":
+                    MostrarLectura();
                     break;
                 case "0":
                     continuar = false;
@@ -45,14 +47,13 @@ namespace Medidores
         static void Main(string[] args)
         {
             //1.- Iniciar el servidor en el puerto 3000
-            do 
-            {
-                HebraServidor hebra = new HebraServidor();
-                Thread t = new Thread(new ThreadStart(hebra.EjecutarServidor));
-                t.IsBackground = false;
-                t.Start();
-            }
-            while (Menu()) ;
+         
+            HebraServidor hebra = new HebraServidor();
+            Thread t = new Thread(new ThreadStart(hebra.EjecutarServidor));
+            t.IsBackground = false;
+            t.Start();
+
+            while (Menu());
         }
 
         static void Ingresar()
@@ -62,17 +63,29 @@ namespace Medidores
             string fecha = ObtenerFecha().Trim();
             Console.WriteLine("Ingrese Lectura :");
             string lectura = Console.ReadLine().Trim();
-            Medidor medidor = new Medidor()
+            Lecturas lecturas = new Lecturas()
             {
                 Nombre = nombre,
                 Fecha = fecha,
                 Lectura = lectura,
                 Tipo = "Aplicacion"
             };
-            medidorDAL.AgregarMedidor(medidor);
+            lock (lectura)
+            {
+                medidorDAL.AgregarLectura(lecturas);
+            }            
         }
 
-        static void Mostrar()
+        static void MostrarLectura()
+        {
+            List<Lecturas> lecturas = medidorDAL.ObtenerLecturas();
+            foreach (Lecturas lectura in lecturas)
+            {
+                Console.WriteLine(lectura);
+            }
+        }
+
+        static void MostrarMedidor()
         {
             List<Medidor> medidores = medidorDAL.ObtenerMedidor();
             foreach (Medidor medidor in medidores)
@@ -83,7 +96,7 @@ namespace Medidores
         static string ObtenerFecha()
         {
             var dateTime = DateTime.Now;
-            var Date = dateTime.ToString("dd-MM-yyyy HH:mm:ss");
+            var Date = dateTime.ToString("yyyy-MM-dd-HH-mm-ss");
             return Date;
         }
         

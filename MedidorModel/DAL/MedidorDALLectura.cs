@@ -30,13 +30,13 @@ namespace MedidorModel.DAL
 
         private static string url = Directory.GetCurrentDirectory();
         private static string archivo = url + "/lecturas.txt";
-        public void AgregarMedidor(Medidor medidor)
+        public void AgregarLectura(Lecturas lectura)
         {
             try
             {
                 using (StreamWriter writer = new StreamWriter(archivo, true))
                 {
-                    writer.WriteLine(medidor.Nombre + ";" + medidor.Fecha + ";" + medidor.Lectura + ";" + medidor.Tipo);
+                    writer.WriteLine(lectura.Nombre + "|" + lectura.Fecha + "|" + lectura.Lectura + "|" + lectura.Tipo);
                     writer.Flush();
                 }
             }
@@ -47,6 +47,40 @@ namespace MedidorModel.DAL
 
         }
 
+        public List<Lecturas> ObtenerLecturas()
+        {
+
+            List<Lecturas> lista = new List<Lecturas>();
+            try
+            {
+                using (StreamReader reader = new StreamReader(archivo))
+                {
+                    string texto = "";
+                    do
+                    {
+                        texto = reader.ReadLine();
+                        if (texto != null)
+                        {
+                            string[] arr = texto.Trim().Split('|');
+                            Lecturas lectura = new Lecturas()
+                            {
+                                Nombre = arr[0],
+                                Fecha = arr[1],
+                                Lectura = arr[2],
+                                Tipo = arr[3]
+                            };
+                            lista.Add(lectura);
+                        }
+
+                    } while (texto != null);
+                }
+            }
+            catch (Exception)
+            {
+                lista = null;
+            }
+            return lista;
+        }
         public List<Medidor> ObtenerMedidor()
         {
 
@@ -61,13 +95,10 @@ namespace MedidorModel.DAL
                         texto = reader.ReadLine();
                         if (texto != null)
                         {
-                            string[] arr = texto.Trim().Split(';');
+                            string[] arr = texto.Trim().Split('|');
                             Medidor medidor = new Medidor()
                             {
-                                Nombre = arr[0],
-                                Fecha = arr[1],
-                                Lectura = arr[2],
-                                Tipo = arr[3]
+                                Nombre = arr[0]
                             };
                             lista.Add(medidor);
                         }

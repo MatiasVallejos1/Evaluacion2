@@ -47,6 +47,7 @@
     <Compile Include="Cliente\ClienteSocket.cs" />
     <Compile Include="DAL\IMedidorDAL.cs" />
     <Compile Include="DAL\MedidorDALLectura.cs" />
+    <Compile Include="DTO\Lecturas.cs" />
     <Compile Include="DTO\Medidor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

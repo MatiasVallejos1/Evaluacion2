@@ -26,18 +26,32 @@ namespace Medidores
             clienteCom.Escribir("Ingrese nombre : ");
             string nombre = clienteCom.Leer();
             clienteCom.Escribir("Ingrese fecha: ");
-            string fecha = clienteCom.Leer();
+            string fechaInicial = clienteCom.Leer();
             clienteCom.Escribir("Ingrese lectura: ");
             string lectura = clienteCom.Leer();
-            Medidor medidor = new Medidor()
+
+            DateTime dateTime = DateTime.Parse(fechaInicial);
+            string fecha = obtenerFecha(dateTime);
+
+            Lecturas lecturas = new Lecturas()
             {
                 Nombre = nombre,
                 Fecha = fecha,
                 Lectura = lectura,
                 Tipo = "TCP"
             };
-            medidorDAL.AgregarMedidor(medidor);
+            lock (lecturas)
+            {
+                medidorDAL.AgregarLectura(lecturas);
+            }
+            clienteCom.Escribir("OK");
             clienteCom.Desconectar();
+        }
+
+        public string obtenerFecha(DateTime dateTime)
+        {
+            String fecha = dateTime.ToString("yyyy-MM-dd-HH-mm-ss");
+            return fecha;
         }
     }
 }
