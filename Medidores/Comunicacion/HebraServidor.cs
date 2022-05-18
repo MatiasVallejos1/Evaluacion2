@@ -16,7 +16,6 @@ namespace Medidores
     {
         
 
-        private static IMedidorDAL medidorDAL = MedidorDALLectura.GetInstacia();
         public void EjecutarServidor()
         {
             int puerto = Convert.ToInt32(ConfigurationManager.AppSettings["puerto"]);
@@ -30,22 +29,12 @@ namespace Medidores
                     Socket cliente = servidor.ObtenerCliente();
                     Console.WriteLine("S: Cliente recibido \n");
                     ClienteCom clienteCom = new ClienteCom(cliente);
-                    
-                    clienteCom.Escribir("Ingrese nombre : ");
-                    string nombre = clienteCom.Leer();
-                    clienteCom.Escribir("Ingrese fecha: ");
-                    string fecha = clienteCom.Leer();
-                    clienteCom.Escribir("Ingrese lectura: ");
-                    string lectura = clienteCom.Leer();
-                    Medidor medidor = new Medidor()
-                    {
-                        Nombre = nombre,
-                        Fecha = fecha,
-                        Lectura = lectura,
-                        Tipo = "TCP"
-                    };
-                    medidorDAL.AgregarMedidor(medidor);
-                    clienteCom.Desconectar();
+
+                    HebraCliente hebraCliente = new HebraCliente(clienteCom);
+                    Thread t = new Thread(new ThreadStart(hebraCliente.Ejecutar));
+                    t.IsBackground = false;
+                    t.Start();
+
                 }
             }
             else

@@ -1,10 +1,12 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Medidores",
+    "\\Medidores\\Comunicacion",
     "\\MedidorModel",
     "\\MedidorModel\\DAL",
     "\\ServerSocketUtils"
   ],
-  "SelectedNode": "\\ServerSocketUtils\\ServerSocket.cs",
+  "SelectedNode": "\\Medidores\\Comunicacion\\HebraServidor.cs",
   "PreviewInSolutionExplorer": false
 }
