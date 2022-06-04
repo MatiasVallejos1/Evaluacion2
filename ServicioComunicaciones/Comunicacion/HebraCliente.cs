@@ -23,7 +23,7 @@ namespace ServicioComunicaciones
 
         public void Ejecutar()
         {
-            clienteCom.Escribir("Ingrese nombre : ");
+            clienteCom.Escribir("Ingrese medidor : ");
             string nombre = clienteCom.Leer();
             string resultado="";
 
@@ -50,10 +50,8 @@ namespace ServicioComunicaciones
                     {
 
                         medidorDAL.AgregarLectura(lecturas);
-
                     }
                     resultado = "OK";
-                    clienteCom.Desconectar();
                     break;
                 }
                 else
