@@ -25,7 +25,7 @@ namespace ServicioComunicaciones
         {
             clienteCom.Escribir("Ingrese nombre : ");
             string nombre = clienteCom.Leer();
-            string name="";
+            string resultado="";
 
             List<Medidor> listaMedidores = medidorDAL.ObtenerMedidor();
             foreach (var i in listaMedidores)
@@ -50,20 +50,21 @@ namespace ServicioComunicaciones
                     {
 
                         medidorDAL.AgregarLectura(lecturas);
-                        clienteCom.Escribir("OK");
 
                     }
-                    
+                    resultado = "OK";
                     clienteCom.Desconectar();
+                    break;
                 }
                 else
                 {
-                    clienteCom.Escribir("Medidor no registrado!!");
-                    clienteCom.Desconectar();
+                    resultado = "Medidor no registrado!!";
+                    
                 }
             }
+            clienteCom.Escribir(resultado);
+            clienteCom.Desconectar();
 
-            
         }
 
         public bool Verificar(String nombre)
